@@ -93,6 +93,10 @@ public class User implements UserDetails, Serializable {
 		return reviews;
 	}
 
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

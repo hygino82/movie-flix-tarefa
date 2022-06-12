@@ -8,12 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_movie")
-public class Movie  implements Serializable {
+public class Movie implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,24 +27,25 @@ public class Movie  implements Serializable {
 	private String imgUrl;
 	private Integer year;
 	private String synopsis;
-	
+
 	@OneToMany(mappedBy = "id.movie")
 	private Set<Review> reviews = new HashSet<>();
-	
-	@OneToMany(mappedBy = "id.movie")
-	private Set<Genre> genres = new HashSet<>();
 
-	
+	@ManyToOne
+	@JoinColumn(name = "genre_id")
+	private Genre genre;
+
 	public Movie() {
 	}
 
-	public Movie(Long id, String title, String subTitle, String imgUrl, Integer year, String synopsis) {
+	public Movie(Long id, String title, String subTitle, String imgUrl, Integer year, String synopsis, Genre genre) {
 		this.id = id;
 		this.title = title;
 		this.subTitle = subTitle;
 		this.imgUrl = imgUrl;
 		this.year = year;
 		this.synopsis = synopsis;
+		this.genre = genre;
 	}
 
 	public Long getId() {
@@ -97,8 +100,12 @@ public class Movie  implements Serializable {
 		return reviews;
 	}
 
-	public Set<Genre> getGenres() {
-		return genres;
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Genre genre) {
+		this.genre = genre;
 	}
 
 	@Override
@@ -124,5 +131,5 @@ public class Movie  implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 }
