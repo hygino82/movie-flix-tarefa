@@ -54,9 +54,4 @@ public class UserService implements UserDetailsService {
 		logger.info("User found: " + username);
 		return user;
 	}
-
-	public UserDTO returnLoggedUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

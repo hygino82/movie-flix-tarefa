@@ -24,9 +24,9 @@ public class UserController {
 		return ResponseEntity.ok(dto);
 	}
 	
-	@GetMapping("/profile")
-	public ResponseEntity<UserDTO> returnLoggedUser() {
-		UserDTO dto = service.returnLoggedUser();
-		return ResponseEntity.ok(dto);
-	}
+//	@GetMapping("/profile")
+//	public ResponseEntity<UserDTO> returnLoggedUser() {
+//		UserDTO dto = service.loadUserByUsername(null)
+//		return ResponseEntity.ok(dto);
+//	}
 }

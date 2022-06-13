@@ -7,34 +7,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.movieflix.entities.User;
 import com.devsuperior.movieflix.repositories.UserRepository;
-import com.devsuperior.movieflix.services.exceptions.ForbiddenException;
 import com.devsuperior.movieflix.services.exceptions.UnauthorizedException;
 
 @Service
 public class AuthService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository repository;
 
-	@Transactional(readOnly = true)
-	public User authenticated() {
-
-		try {
-			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			return userRepository.findByEmail(username);
-		}
-
-		catch (Exception e) {
-			throw new UnauthorizedException("Invalid User");
-		}
-	}
-
-	public void validateSelfOrAdmin(Long userId) {
-
-		User user = authenticated();
-
-		if (!user.getId().equals(userId) && !user.hasRole("ROLE_MEMBER")) {
-			throw new ForbiddenException("Access denied");
-		}
-	}
+	 @Transactional(readOnly = true)
+	    public User authenticated() {
+	        try {
+	            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	            return repository.findByEmail(username);
+	        } catch (Exception e) {
+	            throw new UnauthorizedException("Invalid user");
+	        }
+	    }
 }
