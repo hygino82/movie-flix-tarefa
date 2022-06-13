@@ -15,13 +15,13 @@ public class AuthService {
 	@Autowired
 	private UserRepository repository;
 
-	 @Transactional(readOnly = true)
-	    public User authenticated() {
-	        try {
-	            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-	            return repository.findByEmail(username);
-	        } catch (Exception e) {
-	            throw new UnauthorizedException("Invalid user");
-	        }
-	    }
+	@Transactional(readOnly = true)
+	public User authenticated() {
+		try {
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			return repository.findByEmail(username);
+		} catch (Exception e) {
+			throw new UnauthorizedException("Invalid user");
+		}
+	}
 }
